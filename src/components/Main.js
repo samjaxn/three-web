@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Scene, PerspectiveCamera, WebGLRenderer, BoxGeometry, MeshBasicMaterial, Mesh, AmbientLight, HemisphereLight, HemisphereLightHelper } from 'three';
-import tvGLTF from '../gltf/tv2.gltf'
+import tvGLTF from '../gltf/tv2.gltf';
+import adamHead from '../gltf/adamHead/adamHead.gltf';
 
 export class Main extends Component {
     componentDidMount(){
         var scene = new Scene();
-        var camera = new PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 3000);
+        var camera = new PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 10000);
         var renderer = new WebGLRenderer();
         renderer.setSize( window.innerWidth, window.innerHeight );
         var controls = new OrbitControls( camera, renderer.domElement );
         document.body.appendChild( renderer.domElement );
         
-
+        camera.position.y = 200;
         camera.position.z = 2000;
 
         var light = new AmbientLight( 0x000f0f ); // soft white light
@@ -49,10 +50,10 @@ export class Main extends Component {
         var animate = function () {
             requestAnimationFrame( animate );
 
-            /*if(model){
-                model.rotation.x += 0.01;
+            if(model){
+                //model.rotation.x += 0.01;
                 model.rotation.y += 0.01;
-            }*/
+            }
             
 
             renderer.render( scene, camera );
