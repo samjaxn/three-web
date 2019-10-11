@@ -9,22 +9,16 @@ export class Main extends Component {
     componentDidMount(){
         var scene = new Scene();
         var camera = new PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 10000);
-        var renderer = new WebGLRenderer();
+        camera.position.set( 0, 600, 2000 );
+        var renderer = new WebGLRenderer({ antialias: true });
         renderer.setSize( window.innerWidth, window.innerHeight );
         var controls = new OrbitControls( camera, renderer.domElement );
         document.body.appendChild( renderer.domElement );
         
-        camera.position.y = 200;
-        camera.position.z = 2000;
-
-        var light = new AmbientLight( 0x000f0f ); // soft white light
-        scene.add( light );
-        
-        
-        var hemiLight = new HemisphereLight( 0xffffff, 0xffffff, 0.6 );
-        hemiLight.color.setHSL( 0.6, 1, 0.6 );
-        hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
-        hemiLight.position.set( 0, 50, 0 );
+        var hemiLight = new HemisphereLight( 0xffffff, 0xffffff, 0.8 );
+        hemiLight.color.setHSL( 1, 1, 1 );
+        hemiLight.groundColor.setHSL( 1, 1, 0.75 );
+        hemiLight.position.set( 1000, 2000, 0 );
         scene.add( hemiLight );
         var hemiLightHelper = new HemisphereLightHelper( hemiLight, 10 );
         scene.add( hemiLightHelper );
@@ -37,6 +31,7 @@ export class Main extends Component {
             console.log("working");
             console.log(gltf.scene.position);
             model = gltf.scene;
+            model.position.set( 0, -150, 0);
             scene.add(model);
             
         },
@@ -47,6 +42,12 @@ export class Main extends Component {
             console.log(error);
         });
 
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }, false);
+
         var animate = function () {
             requestAnimationFrame( animate );
 
@@ -54,7 +55,7 @@ export class Main extends Component {
                 //model.rotation.x += 0.01;
                 model.rotation.y += 0.01;
             }
-            
+            controls.update();
 
             renderer.render( scene, camera );
         };
