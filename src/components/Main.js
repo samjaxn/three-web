@@ -3,8 +3,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Scene, PerspectiveCamera, WebGLRenderer, BoxGeometry, MeshBasicMaterial, Mesh, AmbientLight, HemisphereLight, HemisphereLightHelper, LoadingManager } from 'three';
 //import tvGLTF from '../gltf/tv2.gltf';
-import tvGLTF from '../gltf/tvModelNoTexture.gltf';
-//import tvGLTF from '../gltf/tvModelChrome.gltf';
+//import tvGLTF from '../gltf/tvModelNoTexture.gltf';
+import tvGLTF from '../gltf/tvModelNoTextureSimplified90.gltf';
 //import adamHead from '../gltf/adamHead/adamHead.gltf';
 
 export class Main extends Component {
